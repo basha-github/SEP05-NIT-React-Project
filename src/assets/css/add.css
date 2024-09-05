@@ -1,0 +1,26 @@
+.deleteButton{
+    margin-left: 2rem;
+    margin-top: 2rem;
+}
+
+
+.prop-field {
+    margin-left: 3rem;
+}
+
+.prop-label {
+   margin-left: 5rem;
+}
+.prop-gap {
+    margin-left: 5rem;
+    margin-top: 2rem;
+}
+
+.divMargin{
+    margin-top: 10rem;
+}
+
+.addButton{
+ margin-top: 2rem;
+ margin-left: 10rem;   
+}
