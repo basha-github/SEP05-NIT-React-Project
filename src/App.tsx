@@ -18,11 +18,11 @@ export default function App() {
 <Route path="/" element={<Login />} />
 <Route path="/home" element={<Home />} />
 <Route path="/add" element={<AddNewMovie />} />
-<Route path="/edit" element={<EditMovie />} />
+<Route path="/edit/:id" element={<EditMovie />} />
 <Route path="/all" element={<AllMoviesList />} />
 <Route path="/about" element={<AboutUs />} />
 <Route path="/contact" element={<ContactUs />} />
-<Route path="/mDes" element={<MovieDescription />} />
+<Route path="/mDes/:id" element={<MovieDescription />} />
 
 
 </Routes>

@@ -1,7 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import NavBar from './NavBar'
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+interface NitMovie{
+  id:number;
+  title:string;
+  runtime:string;
+  year:string;
+  poster:string;
+}
 
 export default function MovieDescription() {
+  const id = useParams();
+  const [movie,setMovie] = useState<NitMovie>();
+  
+  useEffect(()=>{
+    const jObj = JSON.stringify(id);
+  const jValue = JSON.parse(jObj).id;
+  axios.get<NitMovie>("http://localhost:1234/nit/movies/get?id="+jValue)
+  .then(res=>{
+    console.log("res--->"+res.data);
+    
+    setMovie(res.data)
+  
+  })
+  },[]);
   return (
     <div>
          <NavBar />
@@ -13,16 +36,16 @@ export default function MovieDescription() {
         <div className="row g-0">
           <div className="col-md-4">
             <img 
-            src="https://m.media-amazon.com/images/M/MV5BMjIwMjE1Nzc4NV5BMl5BanBnXkFtZTgwNDg4OTA1NzM@._V1_SX300.jpg"
-             className="img-fluid rounded-start" alt="..." />
+            src={movie?.poster}
+            className="img-fluid rounded-start" alt="..." />
           </div>
           <div className="col-md-8">
             <div className="card-body">
-              <h5 className="card-title">Title</h5>
-              <p className="card-text">Runtime:</p>
+              <h5 className="card-title">Title:{movie?.title}</h5>
+              <p className="card-text">Runtime:{movie?.runtime}</p>
               <p className="card-text">
                 <small className="text-body-secondary">
-                  Year:
+                  Year:{movie?.year}
                   </small></p>
             </div>
           </div>

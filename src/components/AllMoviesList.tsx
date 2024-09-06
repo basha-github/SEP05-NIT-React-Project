@@ -4,10 +4,11 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 interface Movies{
-  Title:string;
-  Runtime:string;
-  Year:string;
-  Poster:string;
+  id:string;
+  title:string;
+  runtime:string;
+  year:string;
+  poster:string;
 }
 export default function AllMoviesList() {
 
@@ -15,18 +16,21 @@ const [allMovies,setAllMovies] = useState<Movies[]>([]);
 const nav = useNavigate();
 
 
-const goEdit = ()=>{
-  nav("/edit")
+const goEdit = (id:string)=>{
+  nav("/edit/"+id)
 }
 
-const goMovie =()=>{
-  nav("/mDes")
+const goMovie =(id:string)=>{
+  nav("/mDes/"+id)
 }
   useEffect(()=>{
-
-    axios.get<Movies[]>("https://my-json-server.typicode.com/horizon-code-academy/fake-movies-api/movies")
-    .then(res=>setAllMovies(res.data))
-  });
+    axios.get<Movies[]>("http://localhost:1234/nit/movies/all")
+    .then(res=>{
+      console.log("res--->"+res.data);
+      setAllMovies(res.data)
+  })
+  }
+,[]);
   return (
     <div>
        <NavBar />
@@ -36,15 +40,21 @@ const goMovie =()=>{
         <div className="row g-0">
           <div className="col-md-4">
             <img 
-            onClick={goMovie}
-            src={eachMovie.Poster}
+            onClick={()=>{
+              goMovie(`${eachMovie.id}`)
+            }
+           }
+            src={eachMovie.poster}
              className="img-fluid rounded-start" alt="..." />
           </div>
           <div className="col-md-8">
             <div className="card-body">
-              <h5 className="card-title">{eachMovie.Title}</h5>
+              <h5 className="card-title">{eachMovie.title}</h5>
               <button 
-              onClick={goEdit}
+              onClick={()=>{
+                goEdit(`${eachMovie.id}`)
+              }
+             }
               type="button" 
               className="btn btn-info">Edit</button>
             </div>
